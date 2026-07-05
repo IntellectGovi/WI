@@ -331,7 +331,7 @@ function EnvelopeView({ onOpen, opening }) {
         >
           <img src={A.envelope} alt="Wedding invitation envelope" className="w-[280px] sm:w-[340px] md:w-[380px] h-auto drop-shadow-2xl" />
           <span className="absolute inset-0 flex items-center justify-center">
-            <img src={A.logo} alt="SR wax seal monogram" className="w-14 h-14 sm:w-16 sm:h-16 object-contain drop-shadow-lg group-hover:rotate-12 transition-transform duration-500" />
+            <img src={A.logo} alt="SR wax seal monogram" style={{ borderRadius: "100%" }} className="bg-white w-14 h-14 sm:w-16 sm:h-16 object-contain drop-shadow-lg group-hover:rotate-12 transition-transform duration-500" />
           </span>
         </button>
 
