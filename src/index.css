@@ -60,6 +60,16 @@
   transform-origin: center;
 }
 
+/* Scroll indicator dot */
+@keyframes scroll-dot {
+  0%   { transform: translateY(0); opacity: 1; }
+  70%  { transform: translateY(10px); opacity: 0.2; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.animate-scroll-dot {
+  animation: scroll-dot 1.6s ease-in-out infinite;
+}
+
 /* Smooth scrollbar */
 html {
   scroll-behavior: smooth;

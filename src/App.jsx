@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback, createContext, useContext } from 'react'
 import confetti from 'canvas-confetti'
-import { Volume2, VolumeX, MapPin, Languages } from 'lucide-react'
+import { Volume2, VolumeX, MapPin, Languages, ChevronDown } from 'lucide-react'
 
 // ─── Asset paths ────────────────────────────────────────────────────────────
 const A = {
@@ -149,6 +149,30 @@ function LangToggle() {
   )
 }
 
+// ─── Scroll Indicator ────────────────────────────────────────────────────────
+function ScrollIndicator() {
+  const [hidden, setHidden] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setHidden(window.scrollY > 120)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+  return (
+    <button
+      type="button"
+      onClick={() => window.scrollBy({ top: window.innerHeight * 0.9, behavior: 'smooth' })}
+      aria-label="Scroll down"
+      className={`fixed right-5 bottom-6 z-40 flex flex-col items-center gap-1 pointer-events-auto transition-opacity duration-500 ${hidden ? 'opacity-0 pointer-events-none' : 'opacity-90'}`}
+    >
+      <span className="font-cinzel text-[10px] tracking-[0.3em] text-rose-deep/80 uppercase">Scroll</span>
+      <span className="relative flex h-10 w-6 items-start justify-center rounded-full border-2 border-rose-deep/60 bg-cream/40 backdrop-blur-sm shadow-soft">
+        <span className="mt-1.5 h-2 w-1 rounded-full bg-rose-deep animate-scroll-dot" />
+      </span>
+      <ChevronDown className="h-4 w-4 text-rose-deep/70 animate-bounce" />
+    </button>
+  )
+}
+
 // ─── Preloader ───────────────────────────────────────────────────────────────
 function Preloader() {
   useEffect(() => {
@@ -278,7 +302,7 @@ function MusicPlayer({ play }) {
           type="button"
           aria-label={muted ? t.unmute : t.mute}
           onClick={() => setMuted(m => !m)}
-          className="fixed bottom-5 right-5 z-50 h-11 w-11 rounded-full bg-foreground/80 text-cream backdrop-blur shadow-elegant flex items-center justify-center hover:scale-105 transition"
+          className="fixed top-5 right-[7.5rem] z-50 h-11 w-11 rounded-full bg-foreground/80 text-cream backdrop-blur shadow-elegant flex items-center justify-center hover:scale-105 transition"
         >
           {muted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
         </button>
@@ -741,6 +765,8 @@ function MainInvitation() {
         <p className="font-serif-display text-lg italic text-amber-100">{t.weddingDate}</p>
         <p className="mt-3 font-cinzel text-xs tracking-[0.25em] text-amber-100">#SKForever · #ShreyKiKirti</p>
       </footer>
+
+      <ScrollIndicator />
 
     </main>
   )
