@@ -542,7 +542,7 @@ function MainInvitation() {
           </p>
           <div className="w-16 h-px bg-gold-soft/60 mx-auto my-6" />
           <p className="font-cinzel text-xs tracking-[0.25em] text-rose-deep/70">WITH LOVE</p>
-          <h3 className="font-script text-3xl sm:text-4xl text-rose mt-1">Vaishnav &amp; Upadhyay Families</h3>
+          <h3 className="font-script text-3xl sm:text-4xl text-rose mt-1">Khokhra &amp; Upadhyay Families</h3>
           <div className="w-16 h-px bg-gold-soft/60 mx-auto my-2" />
           <p className="font-cinzel text-xs tracking-[0.25em] text-rose-deep/70">LOVINGLY INVITED BY</p>
           <h3 className="font-script text-xl sm:text-2xl text-rose mt-1">Friends &amp; Family</h3>
