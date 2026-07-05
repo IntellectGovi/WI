@@ -460,7 +460,7 @@ function MainInvitation() {
               <span className="font-script text-6xl sm:text-8xl text-rose leading-none drop-shadow-sm hover:scale-105 transition-transform duration-500 block">Kirti</span>
             </h1>
             <div className="mt-2 text-xs sm:text-sm text-foreground/80 tracking-wide leading-relaxed animate-fade-up delay-700">
-              <p className="font-medium">D/o Mr. Brijesh Upadhyay &amp; Mrs. Laxmi Upadhyay</p>
+              <p className="font-medium">D/o Mrs. Laxmi Upadhyay &amp; Mr. Brijesh Upadhyay</p>
             </div>
           </div>
         </div>
@@ -517,7 +517,7 @@ function MainInvitation() {
                 <div className="w-24 h-px bg-gold-soft/30 my-5" />
                 <h2 className="font-cinzel text-2xl sm:text-3xl tracking-[0.15em] font-bold text-[#47296b]">ENGAGEMENT CEREMONY</h2>
                 <div className="mt-4 bg-black/20 border border-gold-soft/25 px-6 py-2 rounded-full font-cinzel text-xs sm:text-sm text-[#47296b] font-semibold shadow-soft">
-                  14th August 2026 | 4:00 PM
+                  14th August 2026 | 11:00 AM
                 </div>
               </div>
               <div className="relative z-10 w-full max-w-[200px] sm:max-w-[240px] mx-auto mt-8 flex justify-center items-end self-end">
@@ -560,7 +560,7 @@ function MainInvitation() {
           <h2 className="font-script text-4xl sm:text-5xl text-rose-deep mt-2">Hotel Lotus Grand</h2>
           <Divider />
           <p className="font-serif-display text-base sm:text-lg text-foreground/80 max-w-xl mx-auto mb-8">
-            Join us for the engagement ceremony on <span className="font-semibold text-rose-deep">14th August 2026 at 4:00 PM</span>
+            Join us for the engagement ceremony on <span className="font-semibold text-rose-deep">14th August 2026 at 11:00 AM</span>
           </p>
 
           {/* Live Map Embed */}
