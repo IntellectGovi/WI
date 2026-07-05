@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, createContext, useContext } from 'react'
 import confetti from 'canvas-confetti'
-import { Volume2, VolumeX, MapPin } from 'lucide-react'
+import { Volume2, VolumeX, MapPin, Languages } from 'lucide-react'
 
 // ─── Asset paths ────────────────────────────────────────────────────────────
 const A = {
@@ -27,6 +27,126 @@ const A = {
   fallingDaisy: '/assets/falling-daisy-DWyrh5i3.png',
   fallingRose: '/assets/falling-rose-petal-CzrX2ZBd.png',
   audio: '/audio/background.mp3',
+}
+
+// ─── i18n ────────────────────────────────────────────────────────────────────
+const TRANSLATIONS = {
+  en: {
+    youreInvited: "YOU'RE INVITED",
+    tapEnvelope: 'Tap the envelope to open our invitation',
+    openInvitation: 'Open invitation',
+    mantraTitle: '|| Om Shree Ganeshaya Namah ||',
+    mantraLine1: 'मङ्गलम् भगवान विष्णुः मङ्गलम् गरुडध्वजः ।',
+    mantraLine2: 'मङ्गलम् पुण्डरी काक्षः मङ्गलाय तनो हरिः ।।',
+    requestPresence: 'We request the honor of your gracious presence on the auspicious occasion of the engagement celebration of',
+    groom: 'Shrey',
+    groomParents: 'S/o Mrs. Panna Vaishnav & Mr. Bharat Vaishnav',
+    and: 'and',
+    bride: 'Kirti',
+    brideParents: 'D/o Mrs. Laxmi Upadhyay & Mr. Brijesh Upadhyay',
+    gettingEngaged: 'getting engaged',
+    saveTheDate: 'SAVE THE DATE',
+    scratchToReveal: '✦  SCRATCH TO REVEAL  ✦',
+    weddingDate: '14th August 2026',
+    weddingDateTime: '14th August 2026 | 11:00 AM',
+    weddingDateAtTime: '14th August 2026 at 11:00 AM',
+    days: 'Days',
+    hours: 'Hours',
+    minutes: 'Minutes',
+    seconds: 'Seconds',
+    engagementCeremony: 'ENGAGEMENT CEREMONY',
+    joinUsToCelebrate: 'JOIN US TO CELEBRATE',
+    pleaseJoinEvening: 'PLEASE JOIN US FOR AN EVENING',
+    witnessMoment: 'Witness the moment two rings lock in the promise of a lifetime.',
+    awaitingPresence: 'Awaiting Your Noble Presence',
+    joinUsCelebrate: 'Join us as we celebrate love, laughter, and the beginning of forever beautiful together. 🧿',
+    withLove: 'WITH LOVE',
+    families: 'Vaishnav & Upadhyay Families',
+    lovinglyInvitedBy: 'LOVINGLY INVITED BY',
+    friendsFamily: 'Friends & Family',
+    eagerlyAwaiting: 'Eagerly awaiting the pleasure of your presence and blessings.',
+    whereWeCelebrate: 'WHERE WE CELEBRATE',
+    venueName: 'Hotel Lotus Grand',
+    joinCeremonyOn: 'Join us for the engagement ceremony on',
+    getDirections: 'Get Directions',
+    coupleNames: 'Shrey & Kirti',
+    mute: 'Mute background music',
+    unmute: 'Unmute background music',
+    switchLang: 'हिन्दी',
+  },
+  hi: {
+    youreInvited: 'आप आमंत्रित हैं',
+    tapEnvelope: 'हमारा निमंत्रण खोलने के लिए लिफाफे पर टैप करें',
+    openInvitation: 'निमंत्रण खोलें',
+    mantraTitle: '|| ॐ श्री गणेशाय नमः ||',
+    mantraLine1: 'मङ्गलम् भगवान विष्णुः मङ्गलम् गरुडध्वजः ।',
+    mantraLine2: 'मङ्गलम् पुण्डरी काक्षः मङ्गलाय तनो हरिः ।।',
+    requestPresence: 'हम आपकी शुभ उपस्थिति की सादर विनती करते हैं इस मंगल सगाई समारोह के अवसर पर',
+    groom: 'श्रेय',
+    groomParents: 'पुत्र श्रीमती पन्ना वैष्णव एवं श्री भरत वैष्णव',
+    and: 'एवं',
+    bride: 'कीर्ति',
+    brideParents: 'पुत्री श्रीमती लक्ष्मी उपाध्याय एवं श्री बृजेश उपाध्याय',
+    gettingEngaged: 'सगाई हो रही है',
+    saveTheDate: 'तिथि सुरक्षित रखें',
+    scratchToReveal: '✦  खुरचकर देखें  ✦',
+    weddingDate: '१४ अगस्त २०२६',
+    weddingDateTime: '१४ अगस्त २०२६ | प्रातः ११:०० बजे',
+    weddingDateAtTime: '१४ अगस्त २०२६ को प्रातः ११:०० बजे',
+    days: 'दिन',
+    hours: 'घंटे',
+    minutes: 'मिनट',
+    seconds: 'सेकंड',
+    engagementCeremony: 'सगाई समारोह',
+    joinUsToCelebrate: 'हमारे उत्सव में शामिल हों',
+    pleaseJoinEvening: 'कृपया इस संध्या हमारे साथ पधारें',
+    witnessMoment: 'दो अंगूठियों में बंधे जीवन भर के वादे के इस क्षण के साक्षी बनें।',
+    awaitingPresence: 'आपकी सम्मानित उपस्थिति की प्रतीक्षा में',
+    joinUsCelebrate: 'हमारे साथ प्रेम, हंसी और सदा के सुंदर आरंभ का उत्सव मनाइए। 🧿',
+    withLove: 'सप्रेम',
+    families: 'खोखरा एवं उपाध्याय परिवार',
+    lovinglyInvitedBy: 'स्नेहपूर्वक आमंत्रित',
+    friendsFamily: 'मित्र एवं परिवार',
+    eagerlyAwaiting: 'आपकी उपस्थिति एवं आशीर्वाद की सादर प्रतीक्षा है।',
+    whereWeCelebrate: 'उत्सव स्थल',
+    venueName: 'होटल लोटस ग्रैंड',
+    joinCeremonyOn: 'कृपया सगाई समारोह में पधारें',
+    getDirections: 'दिशा-निर्देश',
+    coupleNames: 'श्रेय एवं कीर्ति',
+    mute: 'पृष्ठभूमि संगीत बंद करें',
+    unmute: 'पृष्ठभूमि संगीत चालू करें',
+    switchLang: 'English',
+  },
+}
+
+const LangContext = createContext({ lang: 'en', setLang: () => {}, t: TRANSLATIONS.en })
+
+function LangProvider({ children }) {
+  const [lang, setLang] = useState(() => {
+    try { return localStorage.getItem('lang') || 'en' } catch { return 'en' }
+  })
+  useEffect(() => {
+    try { localStorage.setItem('lang', lang) } catch {}
+  }, [lang])
+  const value = { lang, setLang, t: TRANSLATIONS[lang] }
+  return <LangContext.Provider value={value}>{children}</LangContext.Provider>
+}
+
+const useLang = () => useContext(LangContext)
+
+function LangToggle() {
+  const { lang, setLang, t } = useLang()
+  return (
+    <button
+      type="button"
+      onClick={() => setLang(lang === 'en' ? 'hi' : 'en')}
+      aria-label="Switch language"
+      className="fixed top-5 right-5 z-50 h-11 px-4 rounded-full bg-foreground/80 text-cream backdrop-blur shadow-elegant flex items-center gap-2 hover:scale-105 transition font-cinzel text-xs tracking-wider"
+    >
+      <Languages className="h-4 w-4" />
+      {t.switchLang}
+    </button>
+  )
 }
 
 // ─── Preloader ───────────────────────────────────────────────────────────────
@@ -136,6 +256,7 @@ function FallingPetals({ count = 24 }) {
 function MusicPlayer({ play }) {
   const audioRef = useRef(null)
   const [muted, setMuted] = useState(false)
+  const { t } = useLang()
 
   useEffect(() => {
     const audio = audioRef.current
@@ -155,7 +276,7 @@ function MusicPlayer({ play }) {
       {play && (
         <button
           type="button"
-          aria-label={muted ? 'Unmute background music' : 'Mute background music'}
+          aria-label={muted ? t.unmute : t.mute}
           onClick={() => setMuted(m => !m)}
           className="fixed bottom-5 right-5 z-50 h-11 w-11 rounded-full bg-foreground/80 text-cream backdrop-blur shadow-elegant flex items-center justify-center hover:scale-105 transition"
         >
@@ -179,8 +300,14 @@ function getTimeLeft() {
   }
 }
 
+function toDevanagariDigits(str) {
+  const map = { '0': '०', '1': '१', '2': '२', '3': '३', '4': '४', '5': '५', '6': '६', '7': '७', '8': '८', '9': '९' }
+  return String(str).replace(/[0-9]/g, d => map[d])
+}
+
 function CountdownTimer() {
   const [time, setTime] = useState(getTimeLeft)
+  const { lang, t } = useLang()
 
   useEffect(() => {
     const id = setInterval(() => setTime(getTimeLeft()), 1000)
@@ -188,11 +315,16 @@ function CountdownTimer() {
   }, [])
 
   const units = [
-    { v: time.days, l: 'Days' },
-    { v: time.hours, l: 'Hours' },
-    { v: time.minutes, l: 'Minutes' },
-    { v: time.seconds, l: 'Seconds' },
+    { v: time.days, l: t.days },
+    { v: time.hours, l: t.hours },
+    { v: time.minutes, l: t.minutes },
+    { v: time.seconds, l: t.seconds },
   ]
+
+  const fmt = v => {
+    const s = String(v).padStart(2, '0')
+    return lang === 'hi' ? toDevanagariDigits(s) : s
+  }
 
   return (
     <div className="flex justify-center gap-3 sm:gap-6">
@@ -200,7 +332,7 @@ function CountdownTimer() {
         <div key={u.l} className="flex flex-col items-center min-w-[68px] sm:min-w-[90px]">
           <div className="w-full aspect-square rounded-2xl bg-cream border border-gold-soft shadow-soft flex items-center justify-center backdrop-blur-sm">
             <span className="font-cinzel text-2xl sm:text-4xl text-rose-deep tabular-nums">
-              {String(u.v).padStart(2, '0')}
+              {fmt(u.v)}
             </span>
           </div>
           <span className="mt-2 text-xs sm:text-sm tracking-widest uppercase text-sage-deep">{u.l}</span>
@@ -216,6 +348,7 @@ function ScratchCard({ onRevealed, revealed }) {
   const containerRef = useRef(null)
   const isDrawing = useRef(false)
   const [done, setDone] = useState(false)
+  const { t } = useLang()
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -243,12 +376,12 @@ function ScratchCard({ onRevealed, revealed }) {
       ctx.font = '600 14px "Cinzel", serif'
       ctx.textAlign = 'center'
       ctx.textBaseline = 'middle'
-      ctx.fillText('✦  SCRATCH TO REVEAL  ✦', rect.width / 2, rect.height / 2)
+      ctx.fillText(t.scratchToReveal, rect.width / 2, rect.height / 2)
     }
     draw()
     window.addEventListener('resize', draw)
     return () => window.removeEventListener('resize', draw)
-  }, [])
+  }, [t.scratchToReveal])
 
   const fireConfetti = useCallback(() => {
     const fire = (opts) => confetti({
@@ -292,8 +425,8 @@ function ScratchCard({ onRevealed, revealed }) {
   return (
     <div ref={containerRef} className="relative mx-auto w-full max-w-md h-32 rounded-2xl overflow-hidden border-2 border-gold-soft shadow-elegant select-none">
       <div className="absolute inset-0 flex flex-col items-center justify-center bg-cream">
-        <p className="font-cinzel tracking-[0.35em] text-sage-deep text-base">SAVE THE DATE</p>
-        <p className="font-cinzel text-2xl text-rose-deep mt-1">14th August 2026</p>
+        <p className="font-cinzel tracking-[0.35em] text-sage-deep text-base">{t.saveTheDate}</p>
+        <p className="font-cinzel text-2xl text-rose-deep mt-1">{t.weddingDate}</p>
       </div>
       {!revealed && (
         <canvas
@@ -311,6 +444,7 @@ function ScratchCard({ onRevealed, revealed }) {
 
 // ─── Envelope View (closed) ──────────────────────────────────────────────────
 function EnvelopeView({ onOpen, opening }) {
+  const { t } = useLang()
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center relative bg-[#FCF8F2] px-6 overflow-hidden">
       <img src={A.envelopeBg} alt="" className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
@@ -325,7 +459,7 @@ function EnvelopeView({ onOpen, opening }) {
 
         <button
           onClick={onOpen}
-          aria-label="Open invitation"
+          aria-label={t.openInvitation}
           className={`relative group transition-transform duration-500 hover:scale-105 active:scale-95 ${opening ? 'animate-envelope-open' : 'animate-fade-up delay-100'}`}
           style={{ perspective: '1000px' }}
         >
@@ -336,9 +470,9 @@ function EnvelopeView({ onOpen, opening }) {
         </button>
 
         <div className={`mt-10 text-center transition-all duration-500 ${opening ? 'opacity-0 translate-y-4 pointer-events-none' : 'animate-fade-up delay-200'}`}>
-          <h1 className="font-cinzel text-3xl sm:text-4xl text-rose-deep font-semibold tracking-[0.15em]">YOU'RE INVITED</h1>
+          <h1 className="font-cinzel text-3xl sm:text-4xl text-rose-deep font-semibold tracking-[0.15em]">{t.youreInvited}</h1>
           <p className="mt-3 font-bold font-serif-display text-foreground/80 italic tracking-wide text-base sm:text-lg">
-            Tap the envelope to open our invitation
+            {t.tapEnvelope}
           </p>
         </div>
       </div>
@@ -352,6 +486,7 @@ function MainInvitation() {
   const [visible, setVisible] = useState({})
   const welcomeRef = useRef(null)
   const wardrobeRef = useRef(null)
+  const { t } = useLang()
 
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
@@ -381,7 +516,7 @@ function MainInvitation() {
       <section
         ref={welcomeRef}
         data-id="welcome"
-        className="relative min-h-screen w-full flex flex-col items-center justify-between py-12 px-6 bg-cover bg-center overflow-hidden z-10"
+        className="relative min-h-screen w-full flex flex-col items-center justify-start py-12 px-6 bg-cover bg-center overflow-hidden z-10"
         style={{ backgroundImage: `url(${A.welcomeBg})` }}
       >
         <div className="absolute inset-0 bg-[#FCF8F2]/10 pointer-events-none" />
@@ -414,34 +549,30 @@ function MainInvitation() {
           <div className="mb-4 animate-fade-up">
             <img src={A.ganesh} alt="Lord Ganesha" width={80} height={80} className="mx-auto h-20 w-20 sm:h-24 sm:w-24 object-contain drop-shadow-md animate-shimmer" />
             <h3 className="font-cinzel text-xs sm:text-sm tracking-[0.25em] text-[#5C0F14] font-bold bg-[#FCF8F2]/90 border border-gold-soft/60 px-6 py-1.5 rounded-full shadow-sm inline-block mt-3 backdrop-blur-[1px]">
-              || Om Shree Ganeshaya Namah ||
+              {t.mantraTitle}
             </h3>
           </div>
 
           {/* Sanskrit blessing */}
           <div className="max-w-lg mx-auto bg-[#FCF8F2]/95 border-2 border-gold-soft p-5 rounded-2xl mb-6 shadow-elegant animate-fade-up delay-200 backdrop-blur-sm">
             <p className="tiro-devanagari-hindi-regular sm:text-lg text-[#5C0F14] font-bold leading-relaxed tracking-wider">
-              मङ्गलम् भगवान विष्णुः मङ्गलम् गरुडध्वजः ।<br />
-              मङ्गलम् पुण्डरी काक्षः मङ्गलाय तनो हरिः ।।
+              {t.mantraLine1}<br />
+              {t.mantraLine2}
             </p>
             <div className="w-20 h-px bg-gold-soft mx-auto my-3" />
-            <p className="text-xs sm:text-sm text-rose-deep/80 font-medium italic leading-relaxed uppercase tracking-wider">
-              Mangalam Bhagwan Vishnu · Mangalam Garudadhwajah<br />
-              Mangalam Pundarikakshah · Mangalaya Tano Harih
-            </p>
           </div>
 
           <p className="font-serif-display text-sm sm:text-base text-foreground/80 max-w-md px-4 animate-fade-up delay-300">
-            We request the honor of your gracious presence on the auspicious occasion of the engagement celebration of
+            {t.requestPresence}
           </p>
 
           {/* Groom */}
           <div className="mt-6 flex flex-col items-center">
             <h1 className="animate-fade-up delay-400">
-              <span className="font-script text-6xl sm:text-8xl text-rose leading-none drop-shadow-sm hover:scale-105 transition-transform duration-500 block">Shrey</span>
+              <span className="font-script text-6xl sm:text-8xl text-rose leading-none drop-shadow-sm hover:scale-105 transition-transform duration-500 block">{t.groom}</span>
             </h1>
             <div className="mt-2 text-xs sm:text-sm text-foreground/80 tracking-wide leading-relaxed animate-fade-up delay-500">
-              <p className="font-medium">S/o Mrs. Panna Khokhra &amp; Mr. Bharat Khokhra</p>
+              <p className="font-medium">{t.groomParents}</p>
             </div>
           </div>
 
@@ -449,7 +580,7 @@ function MainInvitation() {
           <div className="my-3 flex flex-col items-center justify-center gap-1 animate-fade-up delay-500">
             <div className="flex items-center gap-3 w-full">
               <span className="h-px flex-1 bg-gold-soft/60" />
-              <span className="font-script text-xl sm:text-2xl text-rose-deep italic">getting engaged to</span>
+              <span className="font-script text-xl sm:text-2xl text-rose-deep italic">{t.and}</span>
               <span className="h-px flex-1 bg-gold-soft/60" />
             </div>
           </div>
@@ -457,25 +588,36 @@ function MainInvitation() {
           {/* Bride */}
           <div className="flex flex-col items-center">
             <h1 className="animate-fade-up delay-500">
-              <span className="font-script text-6xl sm:text-8xl text-rose leading-none drop-shadow-sm hover:scale-105 transition-transform duration-500 block">Kirti</span>
+              <span className="font-script text-6xl sm:text-8xl text-rose leading-none drop-shadow-sm hover:scale-105 transition-transform duration-500 block">{t.bride}</span>
             </h1>
             <div className="mt-2 text-xs sm:text-sm text-foreground/80 tracking-wide leading-relaxed animate-fade-up delay-700">
-              <p className="font-medium">D/o Mrs. Laxmi Upadhyay &amp; Mr. Brijesh Upadhyay</p>
+              <p className="font-medium">{t.brideParents}</p>
             </div>
+
           </div>
+
         </div>
 
-        {/* Shiva-Parvati caricature */}
-        <div className="relative z-10 w-full max-w-[280px] sm:max-w-[340px] mt-8 flex justify-center items-end animate-fade-up delay-1000">
+        <div className="my-3 flex flex-col items-center justify-center gap-1 animate-fade-up delay-500">
+            <div className="flex items-center gap-3 w-full">
+              <span className="h-px flex-1 bg-gold-soft/60" />
+              <span className="font-script text-xl sm:text-2xl text-rose-deep italic">{t.gettingEngaged}</span>
+              <span className="h-px flex-1 bg-gold-soft/60" />
+            </div>
+          </div>
+
+          {/* Shiva-Parvati caricature */}
+          <div className="relative z-10 w-full max-w-[280px] sm:max-w-[340px] mt-8 flex justify-center items-end animate-fade-up delay-1000">
           <img src={A.shivaParvati} alt="Shiva-Parvati engagement caricature" className="w-full h-auto object-contain drop-shadow-xl select-none" />
         </div>
+
       </section>
 
       {/* ── Save the Date ── */}
       <section className="relative py-20 px-6 bg-cream border-y border-gold-soft/30 z-10">
         <img src={A.weddingHero} alt="" className="absolute inset-0 w-full h-full object-cover opacity-15 pointer-events-none" />
         <div className="relative max-w-3xl mx-auto text-center z-10">
-          <h2 className="font-cinzel text-xl sm:text-2xl text-rose-deep tracking-[0.2em] mb-4">SAVE THE DATE</h2>
+          <h2 className="font-cinzel text-xl sm:text-2xl text-rose-deep tracking-[0.2em] mb-4">{t.saveTheDate}</h2>
           <Divider />
           <div className="mb-10 mt-8">
             <ScratchCard revealed={dateRevealed} onRevealed={() => setDateRevealed(true)} />
@@ -490,8 +632,8 @@ function MainInvitation() {
       <section className="relative py-20 px-4 sm:px-6 bg-[#FCF8F2] z-10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="font-cinzel text-3xl sm:text-5xl text-rose-deep font-bold tracking-[0.15em]">ENGAGEMENT CEREMONY</h2>
-            <p className="font-cinzel text-xs tracking-[0.25em] text-rose-deep/75 mt-1">JOIN US TO CELEBRATE</p>
+            <h2 className="font-cinzel text-3xl sm:text-5xl text-rose-deep font-bold tracking-[0.15em]">{t.engagementCeremony}</h2>
+            <p className="font-cinzel text-xs tracking-[0.25em] text-rose-deep/75 mt-1">{t.joinUsToCelebrate}</p>
             <Divider />
           </div>
 
@@ -512,12 +654,12 @@ function MainInvitation() {
               <div className="relative z-10 text-center flex flex-col items-center w-full mx-auto bg-white/15 backdrop-blur-md border border-white/15 p-5 sm:p-6 rounded-3xl shadow-elegant mt-16 sm:mt-20">
                 <img src={A.logo} alt="SR Monogram" className="w-12 h-12 object-contain opacity-95 mb-2" />
                 <p className="font-serif-display italic text-amber-200 text-lg font-semibold tracking-wider">#SKForever</p>
-                <h3 className="font-cinzel text-xs tracking-[0.2em] text-amber-200/80 mt-2 uppercase">PLEASE JOIN US FOR AN EVENING</h3>
-                <p className="font-serif-display text-sm sm:text-base text-amber-200 mt-1 italic">Witness the moment two rings lock in the promise of a lifetime.</p>
+                <h3 className="font-cinzel text-xs tracking-[0.2em] text-amber-200/80 mt-2 uppercase">{t.pleaseJoinEvening}</h3>
+                <p className="font-serif-display text-sm sm:text-base text-amber-200 mt-1 italic">{t.witnessMoment}</p>
                 <div className="w-24 h-px bg-gold-soft/30 my-5" />
-                <h2 className="font-cinzel text-2xl sm:text-3xl tracking-[0.15em] font-bold text-[#47296b]">ENGAGEMENT CEREMONY</h2>
+                <h2 className="font-cinzel text-2xl sm:text-3xl tracking-[0.15em] font-bold text-[#47296b]">{t.engagementCeremony}</h2>
                 <div className="mt-4 bg-black/20 border border-gold-soft/25 px-6 py-2 rounded-full font-cinzel text-xs sm:text-sm text-[#47296b] font-semibold shadow-soft">
-                  14th August 2026 | 11:00 AM
+                  {t.weddingDateTime}
                 </div>
               </div>
               <div className="relative z-10 w-full max-w-[200px] sm:max-w-[240px] mx-auto mt-8 flex justify-center items-end self-end">
@@ -529,25 +671,23 @@ function MainInvitation() {
         </div>
       </section>
 
-      {/* ── Wardrobe Guide ── HIDDEN for Engagement-only card */}
-
       {/* ── Awaiting Presence ── */}
       <section className="relative py-24 px-6 bg-cream text-center z-10 border-t border-gold-soft/30">
         <img src={A.weddingHero} alt="" className="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none" />
         <div className="relative max-w-2xl mx-auto z-10">
-          <h2 className="font-script text-4xl sm:text-5xl text-rose-deep font-semibold">Awaiting Your Noble Presence</h2>
+          <h2 className="font-script text-4xl sm:text-5xl text-rose-deep font-semibold">{t.awaitingPresence}</h2>
           <Divider />
           <p className="font-serif-display italic text-lg sm:text-xl text-foreground/90 leading-relaxed max-w-xl mx-auto">
-            Join us as we celebrate love, laughter, and the beginning of forever beautiful together. 🧿
+            {t.joinUsCelebrate}
           </p>
           <div className="w-16 h-px bg-gold-soft/60 mx-auto my-6" />
-          <p className="font-cinzel text-xs tracking-[0.25em] text-rose-deep/70">WITH LOVE</p>
-          <h3 className="font-script text-3xl sm:text-4xl text-rose mt-1">Khokhra &amp; Upadhyay Families</h3>
+          <p className="font-cinzel text-xs tracking-[0.25em] text-rose-deep/70">{t.withLove}</p>
+          <h3 className="font-script text-3xl sm:text-4xl text-rose mt-1">{t.families}</h3>
           <div className="w-16 h-px bg-gold-soft/60 mx-auto my-2" />
-          <p className="font-cinzel text-xs tracking-[0.25em] text-rose-deep/70">LOVINGLY INVITED BY</p>
-          <h3 className="font-script text-xl sm:text-2xl text-rose mt-1">Friends &amp; Family</h3>
+          <p className="font-cinzel text-xs tracking-[0.25em] text-rose-deep/70">{t.lovinglyInvitedBy}</p>
+          <h3 className="font-script text-xl sm:text-2xl text-rose mt-1">{t.friendsFamily}</h3>
           <p className="font-serif-display text-xs text-foreground/60 mt-1 italic">
-            Eagerly awaiting the pleasure of your presence and blessings.
+            {t.eagerlyAwaiting}
           </p>
         </div>
       </section>
@@ -556,11 +696,11 @@ function MainInvitation() {
       <section className="relative py-20 px-6 bg-[#FAF6F0] z-10 border-t border-gold-soft/30">
         <div className="absolute inset-0 opacity-[0.08] bg-cover bg-center pointer-events-none" style={{ backgroundImage: `url(${A.weddingHero})` }} />
         <div className="relative max-w-4xl mx-auto text-center z-10">
-          <p className="font-cinzel text-xs text-rose-deep/80 tracking-[0.25em] uppercase">WHERE WE CELEBRATE</p>
-          <h2 className="font-script text-4xl sm:text-5xl text-rose-deep mt-2">Hotel Lotus Grand</h2>
+          <p className="font-cinzel text-xs text-rose-deep/80 tracking-[0.25em] uppercase">{t.whereWeCelebrate}</p>
+          <h2 className="font-script text-4xl sm:text-5xl text-rose-deep mt-2">{t.venueName}</h2>
           <Divider />
           <p className="font-serif-display text-base sm:text-lg text-foreground/80 max-w-xl mx-auto mb-8">
-            Join us for the engagement ceremony on <span className="font-semibold text-rose-deep">14th August 2026 at 11:00 AM</span>
+            {t.joinCeremonyOn} <span className="font-semibold text-rose-deep">{t.weddingDateAtTime}</span>
           </p>
 
           {/* Live Map Embed */}
@@ -583,7 +723,7 @@ function MainInvitation() {
             rel="noreferrer"
             className="inline-flex items-center gap-2 mt-2 px-8 py-3 rounded-full gradient-gold text-white font-cinzel text-xs tracking-wider shadow-gold hover:opacity-90 transition"
           >
-            <MapPin className="h-4 w-4" /> Get Directions
+            <MapPin className="h-4 w-4" /> {t.getDirections}
           </a>
         </div>
       </section>
@@ -591,14 +731,14 @@ function MainInvitation() {
       {/* ── Footer ── */}
       <footer className="relative bg-gradient-to-b from-[#3A050B] to-[#5C0F14] text-cream py-16 px-6 text-center z-10 border-t-2 border-gold-soft/40">
         <div className="absolute inset-0 bg-black/10 pointer-events-none" />
-        <p className="font-cinzel text-xs tracking-[0.4em] text-amber-200">WITH LOVE</p>
-        <h3 className="font-script text-5xl sm:text-6xl text-amber-200 mt-3">Shrey &amp; Kirti</h3>
+        <p className="font-cinzel text-xs tracking-[0.4em] text-amber-200">{t.withLove}</p>
+        <h3 className="font-script text-5xl sm:text-6xl text-amber-200 mt-3">{t.coupleNames}</h3>
         <div className="my-5 flex items-center justify-center gap-3">
           <span className="h-px w-12 bg-gold-soft/30" />
           <span className="text-2xl font-emoji">❤️</span>
           <span className="h-px w-12 bg-gold-soft/30" />
         </div>
-        <p className="font-serif-display text-lg italic text-amber-100">14th August 2026</p>
+        <p className="font-serif-display text-lg italic text-amber-100">{t.weddingDate}</p>
         <p className="mt-3 font-cinzel text-xs tracking-[0.25em] text-amber-100">#SKForever · #ShreyKiKirti</p>
       </footer>
 
@@ -617,15 +757,18 @@ export default function App() {
   }
 
   return (
-    <div className="relative">
-      <Preloader />
-      <FallingPetals />
-      {opened && <Butterfly />}
-      <MusicPlayer play={opening || opened} />
-      {opened
-        ? <MainInvitation />
-        : <EnvelopeView onOpen={handleOpen} opening={opening} />
-      }
-    </div>
+    <LangProvider>
+      <div className="relative">
+        <Preloader />
+        <FallingPetals />
+        <LangToggle />
+        {opened && <Butterfly />}
+        <MusicPlayer play={opening || opened} />
+        {opened
+          ? <MainInvitation />
+          : <EnvelopeView onOpen={handleOpen} opening={opening} />
+        }
+      </div>
+    </LangProvider>
   )
 }
