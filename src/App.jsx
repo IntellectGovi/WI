@@ -167,7 +167,7 @@ function MusicPlayer({ play }) {
 }
 
 // ─── Countdown Timer ──────────────────────────────────────────────────────────
-const WEDDING_TIME = new Date('2026-08-04T16:00:00+05:30').getTime()
+const WEDDING_TIME = new Date('2026-08-14T16:00:00+05:30').getTime()
 
 function getTimeLeft() {
   const diff = Math.max(0, WEDDING_TIME - Date.now())
@@ -293,7 +293,7 @@ function ScratchCard({ onRevealed, revealed }) {
     <div ref={containerRef} className="relative mx-auto w-full max-w-md h-32 rounded-2xl overflow-hidden border-2 border-gold-soft shadow-elegant select-none">
       <div className="absolute inset-0 flex flex-col items-center justify-center bg-cream">
         <p className="font-cinzel tracking-[0.35em] text-sage-deep text-base">SAVE THE DATE</p>
-        <p className="font-cinzel text-2xl text-rose-deep mt-1">4th August 2026</p>
+        <p className="font-cinzel text-2xl text-rose-deep mt-1">14th August 2026</p>
       </div>
       {!revealed && (
         <canvas
@@ -432,7 +432,7 @@ function MainInvitation() {
           </div>
 
           <p className="font-serif-display text-sm sm:text-base text-foreground/80 max-w-md px-4 animate-fade-up delay-300">
-            We request the honor of your gracious presence on the auspicious occasion of the wedding celebration of
+            We request the honor of your gracious presence on the auspicious occasion of the engagement celebration of
           </p>
 
           {/* Groom */}
@@ -445,11 +445,13 @@ function MainInvitation() {
             </div>
           </div>
 
-          {/* Weds separator */}
-          <div className="my-3 flex items-center justify-center gap-3 animate-fade-up delay-500">
-            <span className="h-px w-10 bg-gold-soft/60" />
-            <span className="font-script text-2xl sm:text-3xl text-rose-deep italic">weds</span>
-            <span className="h-px w-10 bg-gold-soft/60" />
+          {/* Engagement separator */}
+          <div className="my-3 flex flex-col items-center justify-center gap-1 animate-fade-up delay-500">
+            <div className="flex items-center gap-3 w-full">
+              <span className="h-px flex-1 bg-gold-soft/60" />
+              <span className="font-script text-xl sm:text-2xl text-rose-deep italic">gets engaged to</span>
+              <span className="h-px flex-1 bg-gold-soft/60" />
+            </div>
           </div>
 
           {/* Bride */}
@@ -465,7 +467,7 @@ function MainInvitation() {
 
         {/* Shiva-Parvati caricature */}
         <div className="relative z-10 w-full max-w-[280px] sm:max-w-[340px] mt-8 flex justify-center items-end animate-fade-up delay-1000">
-          <img src={A.shivaParvati} alt="Shiva-Parvati wedding caricature" className="w-full h-auto object-contain drop-shadow-xl select-none" />
+          <img src={A.shivaParvati} alt="Shiva-Parvati engagement caricature" className="w-full h-auto object-contain drop-shadow-xl select-none" />
         </div>
       </section>
 
@@ -488,8 +490,8 @@ function MainInvitation() {
       <section className="relative py-20 px-4 sm:px-6 bg-[#FCF8F2] z-10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="font-cinzel text-3xl sm:text-5xl text-rose-deep font-bold tracking-[0.15em]">EVENTS SCHEDULE</h2>
-            <p className="font-cinzel text-xs tracking-[0.25em] text-rose-deep/75 mt-1">CELEBRATE WITH US</p>
+            <h2 className="font-cinzel text-3xl sm:text-5xl text-rose-deep font-bold tracking-[0.15em]">ENGAGEMENT CEREMONY</h2>
+            <p className="font-cinzel text-xs tracking-[0.25em] text-rose-deep/75 mt-1">JOIN US TO CELEBRATE</p>
             <Divider />
           </div>
 
@@ -515,7 +517,7 @@ function MainInvitation() {
                 <div className="w-24 h-px bg-gold-soft/30 my-5" />
                 <h2 className="font-cinzel text-2xl sm:text-3xl tracking-[0.15em] font-bold text-[#47296b]">ENGAGEMENT CEREMONY</h2>
                 <div className="mt-4 bg-black/20 border border-gold-soft/25 px-6 py-2 rounded-full font-cinzel text-xs sm:text-sm text-[#47296b] font-semibold shadow-soft">
-                  4th August 2026 | 4:00 PM
+                  14th August 2026 | 4:00 PM
                 </div>
               </div>
               <div className="relative z-10 w-full max-w-[200px] sm:max-w-[240px] mx-auto mt-8 flex justify-center items-end self-end">
@@ -523,168 +525,11 @@ function MainInvitation() {
               </div>
             </div>
 
-            {/* Haldi */}
-            <div className="relative rounded-3xl overflow-hidden border border-gold-soft bg-white p-6 sm:p-12 shadow-elegant hover:shadow-2xl transition-all duration-500 group flex flex-col justify-between min-h-[500px] isolate">
-              <img src={A.haldiBg} alt="" className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none scale-[1.06] origin-center" />
-              <div className="absolute inset-0 pointer-events-none overflow-hidden mix-blend-color-burn z-10">
-                {Array.from({ length: 15 }).map((_, i) => (
-                  <div key={i} className="absolute w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-amber-400 opacity-60 animate-turmeric"
-                    style={{ left: `${Math.random() * 100}%`, top: `${10 + Math.random() * 80}%`, animationDelay: `${Math.random() * 3}s`, animationDuration: `${2.5 + Math.random() * 3}s` }} />
-                ))}
-              </div>
-              <div className="relative top-4 z-10 text-center flex flex-col items-center w-full mx-auto bg-white/40 backdrop-blur-md border border-white/30 p-5 sm:p-6 rounded-3xl shadow-elegant mt-20 sm:mt-24">
-                <img src={A.logo} alt="SR Monogram" className="w-12 h-12 object-contain opacity-90 mb-2" />
-                <p className="font-serif-display italic text-amber-700 text-lg font-semibold tracking-wider">#SKForever</p>
-                <h3 className="font-cinzel text-xs tracking-[0.2em] text-amber-700/80 mt-2 uppercase">PLEASE JOIN US FOR A MORNING</h3>
-                <p className="font-serif-display text-sm sm:text-base text-foreground/80 mt-1 italic">Filled with love, laughter and turmeric.</p>
-                <div className="w-24 h-px bg-gold-soft/50 my-5" />
-                <h2 className="font-cinzel text-2xl sm:text-3xl tracking-[0.15em] font-bold text-amber-700">HALDI CEREMONY</h2>
-                <div className="mt-4 bg-amber-500/10 border border-amber-600/30 px-6 py-2 rounded-full font-cinzel text-xs sm:text-sm text-amber-800 font-semibold shadow-soft">
-                  To Be Decided
-                </div>
-              </div>
-              <div className="relative z-10 w-full max-w-[200px] sm:max-w-[240px] mx-auto mt-8 flex justify-center items-end self-end">
-                <img src={A.haldiCouple} alt="Haldi Couple Caricature" className="w-full h-auto object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-500" />
-              </div>
-            </div>
-
-            {/* Mehndi */}
-            <div className="relative rounded-3xl overflow-hidden border border-gold-soft bg-white p-6 sm:p-12 shadow-elegant hover:shadow-2xl transition-all duration-500 group flex flex-col justify-between min-h-[550px] isolate">
-              <img src={A.mehnidBg} alt="" className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none scale-[1.06] origin-center" />
-              <div className="absolute top-0 left-0 pointer-events-none w-20 h-20 sm:w-32 sm:h-32 text-emerald-800/20 z-10">
-                <svg viewBox="0 0 100 100" className="w-full h-full fill-none stroke-current stroke-1 animate-draw">
-                  <path d="M 0,20 C 10,20 20,10 20,0 M 0,40 C 20,40 40,20 40,0 M 0,60 C 30,60 60,30 60,0 M 0,80 C 40,80 80,40 80,0" />
-                  <circle cx="10" cy="10" r="3" className="fill-current" />
-                  <circle cx="30" cy="30" r="3" className="fill-current" />
-                  <circle cx="50" cy="50" r="3" className="fill-current" />
-                </svg>
-              </div>
-              <div className="absolute top-0 right-0 scale-x-[-1] pointer-events-none w-20 h-20 sm:w-32 sm:h-32 text-emerald-800/20 z-10">
-                <svg viewBox="0 0 100 100" className="w-full h-full fill-none stroke-current stroke-1 animate-draw">
-                  <path d="M 0,20 C 10,20 20,10 20,0 M 0,40 C 20,40 40,20 40,0 M 0,60 C 30,60 60,30 60,0" />
-                  <circle cx="15" cy="15" r="2.5" className="fill-current" />
-                  <circle cx="35" cy="35" r="2.5" className="fill-current" />
-                </svg>
-              </div>
-              <div className="relative z-10 text-center flex flex-col items-center w-full mx-auto bg-white/40 backdrop-blur-md border border-white/30 p-5 sm:p-6 rounded-3xl shadow-elegant mt-6 sm:mt-8">
-                <img src={A.logo} alt="SR Monogram" className="w-12 h-12 object-contain opacity-90 mb-2" />
-                <p className="font-serif-display italic text-emerald-800 text-lg font-semibold tracking-wider">#KirtiShrey</p>
-                <h3 className="font-cinzel text-xs tracking-[0.2em] text-emerald-800/80 mt-2 uppercase">PLEASE JOIN US FOR AN AFTERNOON</h3>
-                <p className="font-serif-display text-sm sm:text-base text-foreground/80 mt-1 italic">Filled with vibrant hues, joyful moments and the fragrance of henna.</p>
-                <div className="w-24 h-px bg-gold-soft/50 my-5" />
-                <h2 className="font-cinzel text-2xl sm:text-3xl tracking-[0.15em] font-bold text-emerald-800">MEHNDI CEREMONY</h2>
-                <div className="mt-4 bg-emerald-500/10 border border-emerald-600/30 px-6 py-2 rounded-full font-cinzel text-xs sm:text-sm text-emerald-800 font-semibold shadow-soft">
-                  To Be Decided
-                </div>
-              </div>
-              <div className="relative z-10 w-full max-w-[200px] sm:max-w-[240px] mx-auto mt-8 flex justify-center items-end self-end">
-                <img src={A.mehndiCouple} alt="Mehndi Couple Caricature" className="w-full h-auto object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-500" />
-              </div>
-            </div>
-
-            {/* Sangeet */}
-            <div className="relative rounded-3xl overflow-hidden border border-gold-soft bg-white text-cream p-6 sm:p-12 shadow-elegant hover:shadow-2xl transition-all duration-500 group flex flex-col justify-between min-h-[500px] isolate">
-              <img src={A.sangeetBg} alt="" className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none scale-[1.06] origin-center" />
-              <div className="absolute top-2 left-0 right-0 flex justify-around pointer-events-none px-4 z-10">
-                {Array.from({ length: 12 }).map((_, i) => (
-                  <div key={i} className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-yellow-100 animate-twinkle" style={{ animationDelay: `${i * 0.18}s` }} />
-                ))}
-              </div>
-              <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
-                {['🎵', '🎶', '🎵', '🎶'].map((n, i) => (
-                  <div key={i} className="absolute text-xl opacity-0 animate-float-note text-amber-200" style={{ left: `${15 + Math.random() * 70}%`, bottom: '25%', animationDelay: `${i * 1.6}s` }}>{n}</div>
-                ))}
-              </div>
-              <div className="relative z-10 text-center flex flex-col items-center w-full mx-auto bg-white/15 backdrop-blur-md border border-white/15 p-5 sm:p-6 rounded-3xl shadow-elegant mt-16 sm:mt-20">
-                <img src={A.logo} alt="SR Monogram" className="w-12 h-12 object-contain opacity-95 mb-2" />
-                <p className="font-serif-display italic text-amber-200 text-lg font-semibold tracking-wider">#ShreyKiKirti</p>
-                <h3 className="font-cinzel text-xs tracking-[0.2em] text-amber-200/80 mt-2 uppercase">PLEASE JOIN US FOR AN EVENING</h3>
-                <p className="font-serif-display text-sm sm:text-base text-amber-200 mt-1 italic">Where melodies meet memories and hearts dance with joy.</p>
-                <div className="w-24 h-px bg-gold-soft/30 my-5" />
-                <h2 className="font-cinzel text-2xl sm:text-3xl tracking-[0.15em] font-bold text-[#47296b]">SANGEET CELEBRATION</h2>
-                <div className="mt-4 bg-black/20 border border-gold-soft/25 px-6 py-2 rounded-full font-cinzel text-xs sm:text-sm text-[#47296b] font-semibold shadow-soft">
-                  To Be Decided
-                </div>
-              </div>
-              <div className="relative z-10 w-full max-w-[200px] sm:max-w-[240px] mx-auto mt-8 flex justify-center items-end self-end">
-                <img src={A.sangeetCouple} alt="Sangeet Couple Caricature" className="w-full h-auto object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-500" />
-              </div>
-            </div>
-
-            {/* Wedding */}
-            <div className="relative rounded-3xl overflow-hidden border border-gold-soft bg-white text-cream p-6 sm:p-12 shadow-elegant hover:shadow-2xl transition-all duration-500 group flex flex-col justify-between min-h-[530px] isolate">
-              <img src={A.weddingBg} alt="" className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none scale-[1.06] origin-center" />
-              <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
-                {Array.from({ length: 6 }).map((_, i) => (
-                  <div key={i} className="absolute animate-float-petal opacity-75"
-                    style={{ left: `${10 + Math.random() * 80}%`, animationDuration: `${12 + Math.random() * 8}s`, animationDelay: `${Math.random() * 5}s` }}>
-                    <span className="text-xl sm:text-2xl opacity-70">🌸</span>
-                  </div>
-                ))}
-              </div>
-              <div className="relative z-10 text-center flex flex-col items-center w-full mx-auto bg-white/15 backdrop-blur-md border border-white/15 p-5 sm:p-6 rounded-3xl shadow-elegant mt-16 sm:mt-20">
-                <img src={A.logo} alt="SR Monogram" className="w-12 h-12 object-contain opacity-95 mb-2" />
-                <p className="font-serif-display italic text-red-900 text-lg font-semibold tracking-wider">#SKForever</p>
-                <h3 className="font-cinzel text-xs tracking-[0.2em] text-red-900/80 mt-2 uppercase">PLEASE JOIN US FOR A SACRED CELEBRATION</h3>
-                <p className="font-serif-display text-sm sm:text-base text-red-900/80 mt-1 italic">As two hearts, two families and two journeys become one.</p>
-                <div className="w-24 h-px bg-gold-soft/30 my-4" />
-                <h2 className="font-cinzel text-2xl sm:text-3xl tracking-[0.15em] font-bold text-red-900">WEDDING CEREMONY</h2>
-                <div className="mt-2 text-gold-soft text-xs sm:text-sm font-semibold tracking-widest uppercase">To Be Decided</div>
-                <div className="my-4" />
-                <div className="bg-black/20 border border-gold-soft/25 px-6 sm:px-8 py-3 rounded-2xl w-full max-w-[280px] sm:max-w-xs font-serif-display text-sm sm:text-base text-red-900 space-y-1.5 text-left shadow-soft">
-                  <p className="flex justify-between gap-4"><span>✦ Baraat</span><span className="font-semibold">To Be Decided</span></p>
-                  <p className="flex justify-between gap-4"><span>✦ Varmala</span><span className="font-semibold">To Be Decided</span></p>
-                  <p className="flex justify-between gap-4"><span>✦ Rituals</span><span className="font-semibold">To Be Decided</span></p>
-                </div>
-              </div>
-              <div className="relative z-10 w-full max-w-[200px] sm:max-w-[240px] mx-auto mt-8 flex justify-center items-end self-end">
-                <img src={A.weddingCouple} alt="Wedding Couple Caricature" className="w-full h-auto object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-500" />
-              </div>
-            </div>
-
           </div>
         </div>
       </section>
 
-      {/* ── Wardrobe Guide ── */}
-      <section
-        ref={wardrobeRef}
-        data-id="wardrobe"
-        className="relative py-24 px-6 bg-[#FAF6F0] border-t border-gold-soft/30 z-10"
-      >
-        <div className="absolute inset-0 opacity-[0.12] bg-cover bg-center pointer-events-none" style={{ backgroundImage: `url(${A.weddingHero})` }} />
-        <div className="relative z-10 max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <img src={A.logo} alt="SR Monogram" className="w-14 h-14 object-contain mx-auto opacity-80 mb-2" />
-            <h2 className="font-cinzel text-2xl sm:text-4xl text-rose-deep font-bold tracking-[0.25em]">WARDROBE GUIDE</h2>
-            <Divider />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 mt-12">
-            {[
-              { id: 'w1', img: A.wHaldi, imgAlt: 'Haldi Bowl', label: 'HALDI', sub: 'Sunshine Shades', desc: 'Think comfortable festive wear in cheerful shades of yellow.', color: 'text-amber-700', subColor: 'text-amber-600' },
-              { id: 'w2', img: A.wMehndi, imgAlt: 'Mehndi Hands', label: 'MEHNDI', sub: 'Henna Hues', desc: 'Think vibrant greens with festive accents inspired by the colors of celebration.', color: 'text-emerald-800', subColor: 'text-emerald-700', delay: '150ms' },
-              { id: 'w3', img: A.wSangeet, imgAlt: 'Dhol & Music', label: 'SANGEET', sub: 'Glitz & Glam', desc: 'Think elegant Indo-Western silhouettes, fusion fits, and a touch of festive sparkle.', color: 'text-indigo-800', subColor: 'text-indigo-700', delay: '300ms' },
-              { id: 'w4', img: A.wWedding, imgAlt: 'Kalash', label: 'WEDDING', sub: 'Royal Wedding Hues', desc: 'Think timeless sarees, lehengas, sherwanis, and bandhgalas in rich, regal tones.', color: 'text-rose-800', subColor: 'text-rose-700', delay: '450ms' },
-            ].map(w => (
-              <div
-                key={w.id}
-                data-id={w.id}
-                className={`wardrobe-card bg-white/70 backdrop-blur-sm border border-gold-soft/40 p-6 rounded-3xl shadow-soft hover:shadow-elegant transition-all duration-700 flex gap-5 items-start ${visible[w.id] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-                style={{ transitionDelay: w.delay }}
-              >
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex-shrink-0 flex items-center justify-center border-2 border-gold-soft/40 bg-white overflow-hidden shadow-soft hover:rotate-12 transition-transform duration-500">
-                  <img src={w.img} alt={w.imgAlt} className="w-full h-full object-cover" />
-                </div>
-                <div className="space-y-1">
-                  <h3 className={`font-cinzel text-base tracking-widest ${w.color} font-bold`}>{w.label}</h3>
-                  <h4 className={`font-script text-2xl ${w.subColor} leading-none`}>{w.sub}</h4>
-                  <p className="font-serif-display text-sm sm:text-base text-foreground/80 leading-relaxed pt-1">{w.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ── Wardrobe Guide ── HIDDEN for Engagement-only card */}
 
       {/* ── Awaiting Presence ── */}
       <section className="relative py-24 px-6 bg-cream text-center z-10 border-t border-gold-soft/30">
@@ -697,7 +542,7 @@ function MainInvitation() {
           </p>
           <div className="w-16 h-px bg-gold-soft/60 mx-auto my-6" />
           <p className="font-cinzel text-xs tracking-[0.25em] text-rose-deep/70">WITH LOVE</p>
-          <h3 className="font-script text-3xl sm:text-4xl text-rose mt-1">Khokhra &amp; Upadhyay Families</h3>
+          <h3 className="font-script text-3xl sm:text-4xl text-rose mt-1">Vaishnav &amp; Upadhyay Families</h3>
           <div className="w-16 h-px bg-gold-soft/60 mx-auto my-2" />
           <p className="font-cinzel text-xs tracking-[0.25em] text-rose-deep/70">LOVINGLY INVITED BY</p>
           <h3 className="font-script text-xl sm:text-2xl text-rose mt-1">Friends &amp; Family</h3>
@@ -712,18 +557,31 @@ function MainInvitation() {
         <div className="absolute inset-0 opacity-[0.08] bg-cover bg-center pointer-events-none" style={{ backgroundImage: `url(${A.weddingHero})` }} />
         <div className="relative max-w-4xl mx-auto text-center z-10">
           <p className="font-cinzel text-xs text-rose-deep/80 tracking-[0.25em] uppercase">WHERE WE CELEBRATE</p>
-          <h2 className="font-script text-4xl sm:text-5xl text-rose-deep mt-2">To Be Decided</h2>
+          <h2 className="font-script text-4xl sm:text-5xl text-rose-deep mt-2">Hotel Lotus Grand</h2>
           <Divider />
-          <p className="font-serif-display text-base sm:text-lg text-foreground/80 max-w-xl mx-auto">
-            Join us for the celebrations at:<br />
-            <span className="font-semibold text-rose-deep">📍 To Be Decided</span><br />
-            <span className="italic mt-1 block text-sm text-foreground/60">Venue details will be announced soon.</span>
+          <p className="font-serif-display text-base sm:text-lg text-foreground/80 max-w-xl mx-auto mb-8">
+            Join us for the engagement ceremony on <span className="font-semibold text-rose-deep">14th August 2026 at 4:00 PM</span>
           </p>
+
+          {/* Live Map Embed */}
+          <div className="rounded-3xl overflow-hidden border-2 border-gold-soft/40 shadow-elegant mb-8 mx-auto max-w-2xl">
+            <iframe
+              title="Engagement Venue Map - Hotel Lotus Grand"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.1234!2d83.1074385!3d26.7581756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39913b776113d1df%3A0x3c4a66456ee53d8b!2sHotel%20Lotus%20Grand!5e0!3m2!1sen!2sin!4v1720000000000!5m2!1sen!2sin"
+              width="100%"
+              height="380"
+              style={{ border: 0, display: 'block' }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+
           <a
-            href="https://maps.app.goo.gl/fe4uhWgaaA24qzvJA"
+            href="https://maps.app.goo.gl/x8hnXDQoDhByjfAp8"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 mt-8 px-8 py-3 rounded-full gradient-gold text-white font-cinzel text-xs tracking-wider shadow-gold hover:opacity-90 transition"
+            className="inline-flex items-center gap-2 mt-2 px-8 py-3 rounded-full gradient-gold text-white font-cinzel text-xs tracking-wider shadow-gold hover:opacity-90 transition"
           >
             <MapPin className="h-4 w-4" /> Get Directions
           </a>
@@ -740,8 +598,8 @@ function MainInvitation() {
           <span className="text-2xl font-emoji">❤️</span>
           <span className="h-px w-12 bg-gold-soft/30" />
         </div>
-        <p className="font-serif-display text-lg italic text-amber-100">4th August 2026</p>
-        <p className="mt-3 font-cinzel text-xs tracking-[0.25em] text-amber-100">#SKForever</p>
+        <p className="font-serif-display text-lg italic text-amber-100">14th August 2026</p>
+        <p className="mt-3 font-cinzel text-xs tracking-[0.25em] text-amber-100">#SKForever · #ShreyGetKirti</p>
       </footer>
 
     </main>
