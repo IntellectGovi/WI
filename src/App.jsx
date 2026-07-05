@@ -599,7 +599,7 @@ function MainInvitation() {
           <span className="h-px w-12 bg-gold-soft/30" />
         </div>
         <p className="font-serif-display text-lg italic text-amber-100">14th August 2026</p>
-        <p className="mt-3 font-cinzel text-xs tracking-[0.25em] text-amber-100">#SKForever · #ShreyGetKirti</p>
+        <p className="mt-3 font-cinzel text-xs tracking-[0.25em] text-amber-100">#SKForever · #ShreyKiKirti</p>
       </footer>
 
     </main>
