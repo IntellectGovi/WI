@@ -449,7 +449,7 @@ function MainInvitation() {
           <div className="my-3 flex flex-col items-center justify-center gap-1 animate-fade-up delay-500">
             <div className="flex items-center gap-3 w-full">
               <span className="h-px flex-1 bg-gold-soft/60" />
-              <span className="font-script text-xl sm:text-2xl text-rose-deep italic">gets engaged to</span>
+              <span className="font-script text-xl sm:text-2xl text-rose-deep italic">getting engaged to</span>
               <span className="h-px flex-1 bg-gold-soft/60" />
             </div>
           </div>
