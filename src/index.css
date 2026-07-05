@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom font for Devanagari */
+.tiro-devanagari-hindi-regular {
+  font-family: 'Tiro Devanagari Hindi', serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Delay utilities */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-700 { animation-delay: 700ms; }
+.delay-1000 { animation-delay: 1000ms; }
+
+/* Stroke dash for SVG draw animation */
+.animate-draw {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw 5s linear forwards;
+}
+
+/* Gradient utilities */
+.gradient-gold {
+  background: linear-gradient(135deg, hsl(30 60% 55%), hsl(30 55% 40%));
+}
+
+/* Butterfly animation */
+@keyframes butterfly-fly {
+  0%   { transform: translate(-10vw, 60vh) rotate(-8deg) scale(1); }
+  20%  { transform: translate(20vw, 35vh) rotate(6deg) scale(1.05); }
+  40%  { transform: translate(45vw, 55vh) rotate(-4deg) scale(0.95); }
+  60%  { transform: translate(65vw, 25vh) rotate(8deg) scale(1.1); }
+  80%  { transform: translate(85vw, 45vh) rotate(-6deg) scale(1); }
+  100% { transform: translate(110vw, 30vh) rotate(4deg) scale(1); }
+}
+
+@keyframes butterfly-flap {
+  0%, 100% { transform: scaleX(1); }
+  50%      { transform: scaleX(0.55); }
+}
+
+.butterfly-path {
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 40;
+  pointer-events: none;
+  animation: butterfly-fly 18s linear infinite;
+  will-change: transform;
+}
+
+.butterfly-wings {
+  display: inline-block;
+  animation: butterfly-flap 0.25s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Smooth scrollbar */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
